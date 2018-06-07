@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewEncapsulation, NgZone } from '@angular/core';
 import { MatSnackBar, MAT_TOOLTIP_DEFAULT_OPTIONS, MatTooltipDefaultOptions, MatDatepickerInputEvent} from '@angular/material';
-import { PositionService } from '../position.service';
-import { Position } from '../position';
+import { PositionService } from '../../position.service';
+import { Position } from '../../position';
 import { latLng, marker, Marker, Polygon, tileLayer, Map, latLngBounds, FeatureGroup, Draw } from 'leaflet';
 import { FormControl } from '@angular/forms';
 

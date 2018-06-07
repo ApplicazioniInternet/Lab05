@@ -4,7 +4,7 @@ import { icon, latLng, marker, Marker, tileLayer, Map, LayerGroup } from 'leafle
 import { Observable, of } from 'rxjs';
 import { POSITIONS } from './mock-positions';
 import { Position } from './position';
-import { PositionForm } from './choose-area/position-form';
+import { PositionForm } from './customer/choose-area/position-form';
 
 @Injectable({
   providedIn: 'root'

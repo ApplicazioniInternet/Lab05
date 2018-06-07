@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy, Inject, ViewEncapsulation } from '@angular/core';
 import { MatSnackBar, MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { PositionForm } from './position-form';
-import { PositionService } from '../position.service';
-import { Position } from '../position';
+import { PositionService } from '../../position.service';
+import { Position } from '../../position';
 
 @Component({
   selector: 'app-choose-area',
