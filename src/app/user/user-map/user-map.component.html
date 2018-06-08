@@ -1,0 +1,14 @@
+<mat-card>
+  <mat-card-title>
+    Mappa
+  </mat-card-title>
+  <div
+          id="map-id-user"
+          leaflet
+          leafletDraw
+          (leafletMapReady)="onMapReady($event)"
+          [leafletOptions]="options"
+          [leafletDrawOptions]="drawOptions"
+  >
+  </div>
+</mat-card>

@@ -20,8 +20,10 @@ import { LoginComponent } from './login/login.component';
 import { RouterModule, Routes } from '@angular/router';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 import { ChoosePositionComponent } from './user/choose-position/choose-position.component';
-import { DialogOverviewComponent } from './dialogoverview/dialogoverview.component';
-import { ToolbarComponent } from './toolbar/toolbar.component';
+import { DialogOverviewComponent } from './shared-components/dialog-overview/dialog-overview.component';
+import { ToolbarComponent } from './shared-components/toolbar/toolbar.component';
+import { UserMapComponent } from './user/user-map/user-map.component';
+import { UpdateFileComponent } from './shared-components/update-file/update-file.component';
 
 const appRoutes: Routes = [
     // { path: '', redirectTo: '', pathMatch: 'full' },
@@ -46,6 +48,8 @@ const appRoutes: Routes = [
     ChoosePositionComponent,
     DialogOverviewComponent,
     ToolbarComponent,
+    UserMapComponent,
+    UpdateFileComponent,
   ],
   imports: [
     BrowserModule,

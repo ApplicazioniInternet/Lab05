@@ -3,7 +3,7 @@ import {PositionForm} from '../../customer/choose-area/position-form';
 import {Position} from '../../position';
 import {MatSnackBar} from '@angular/material';
 import {PositionService} from '../../position.service';
-import {DialogOverviewComponent} from '../../dialogoverview/dialogoverview.component';
+import {DialogOverviewComponent} from '../../shared-components/dialog-overview/dialog-overview.component';
 import {MatDialog} from '@angular/material';
 
 @Component({
@@ -13,7 +13,7 @@ import {MatDialog} from '@angular/material';
 })
 export class ChoosePositionComponent implements OnInit, OnDestroy {
     positions: Array<PositionForm> = [];
-    numberOfVertices = 3;
+    numberOfVertices = 1;
 
     constructor(private positionService: PositionService, public snackBar: MatSnackBar, public dialog: MatDialog) { }
 

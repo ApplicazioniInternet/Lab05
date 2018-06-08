@@ -1,2 +1,9 @@
 <app-toolbar [toolbarTitle]="toolbarTitle"></app-toolbar>
-<app-choose-position></app-choose-position>
+<div class="bg-map-div"> <!-- Inizio della divisione con la mappa -->
+    <app-user-map></app-user-map>
+    <app-update-file></app-update-file>
+</div>
+
+<div class="bg-form-div">
+    <app-choose-position></app-choose-position>
+</div>

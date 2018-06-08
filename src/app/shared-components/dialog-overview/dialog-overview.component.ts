@@ -1,11 +1,11 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
-import {PositionService} from '../position.service';
+import {PositionService} from '../../position.service';
 
 @Component({
   selector: 'app-dialogoverview',
-  templateUrl: './dialogoverview.component.html',
-  styleUrls: ['./dialogoverview.component.css']
+  templateUrl: './dialog-overview.component.html',
+  styleUrls: ['./dialog-overview.component.css']
 })
 export class DialogOverviewComponent implements OnInit {
     counter: number;

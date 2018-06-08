@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DialogOverviewComponent } from './dialogoverview.component';
+import { UserMapComponent } from './user-map.component';
 
-describe('DialogOverviewComponent', () => {
-  let component: DialogOverviewComponent;
-  let fixture: ComponentFixture<DialogOverviewComponent>;
+describe('UserMapComponent', () => {
+  let component: UserMapComponent;
+  let fixture: ComponentFixture<UserMapComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DialogOverviewComponent ]
+      declarations: [ UserMapComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DialogOverviewComponent);
+    fixture = TestBed.createComponent(UserMapComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
