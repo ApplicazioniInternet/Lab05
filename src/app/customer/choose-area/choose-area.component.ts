@@ -3,6 +3,7 @@ import { MatSnackBar, MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/
 import { PositionForm } from './position-form';
 import { PositionService } from '../../position.service';
 import { Position } from '../../position';
+import {DialogOverviewComponent} from '../../dialogoverview/dialogoverview.component';
 
 @Component({
   selector: 'app-choose-area',
@@ -264,41 +265,4 @@ export class ChooseAreaComponent implements OnInit, OnDestroy {
       this.positionService.notifyAdditionFromForm(this.positions, this.getNumberOfNotEmptyForms());
     }
   }
-}
-
-// Componente del dialog
-@Component({
-  selector: 'app-dialog-overview-example-dialog',
-  templateUrl: './dialog-component.html',
-  styleUrls: ['./choose-area.component.css'],
-})
-export class DialogOverviewComponent implements OnInit {
-  counter: number;
-
-  constructor(
-    public dialogRef: MatDialogRef<DialogOverviewComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any,
-    private positionService: PositionService) { }
-
-  ngOnInit() {
-    this.counter = this.getNumberOfPositionsInArea();
-  }
-
-  onAnnullaClick(): void {
-    this.dialogRef.close();
-  }
-
-  onConfermaClick(): void {
-    this.positionService.buyPositionsInArea(this.positionService.polygonPosition);
-      // Callback per quando si chiude il dialog
-    this.dialogRef.afterClosed().subscribe(result => {
-        this.positionService.notifyRemoveAllPosition();
-    });
-    this.dialogRef.close();
-  }
-
-  getNumberOfPositionsInArea(): number {
-    return this.positionService.countPositionsInPolygon(this.positionService.polygonPosition);
-  }
-
 }

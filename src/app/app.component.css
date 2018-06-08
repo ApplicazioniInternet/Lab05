@@ -1,0 +1,15 @@
+.fill-remaining-space {
+    flex: 1 1 auto;
+}
+
+mat-toolbar p {
+    padding-left: 64px;
+}
+
+mat-toolbar button {
+    margin: 4px;
+}
+
+.mat-icon-button {
+    float: right;
+}

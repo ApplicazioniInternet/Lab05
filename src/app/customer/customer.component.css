@@ -41,10 +41,6 @@
     vertical-align: baseline;
 }
 
-.fill-remaining-space {
-    flex: 1 1 auto;
-}
-
 .bg-bought-card {
     min-height: 300px;
 }

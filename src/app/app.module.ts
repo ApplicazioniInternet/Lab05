@@ -10,7 +10,6 @@ import { LeafletDrawModule } from '@asymmetrik/ngx-leaflet-draw';
 import { MapComponent } from './customer/map/map.component';
 import { ChooseAreaComponent } from './customer/choose-area/choose-area.component';
 import { PositionsBoughtComponent } from './customer/positions-bought/positions-bought.component';
-import { DialogOverviewComponent } from './customer/choose-area/choose-area.component';
 
 import { ReactiveFormsModule } from '@angular/forms';
 import { CustomerComponent } from './customer/customer.component';
@@ -20,9 +19,12 @@ import { LoginComponent } from './login/login.component';
 
 import { RouterModule, Routes } from '@angular/router';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
+import { ChoosePositionComponent } from './user/choose-position/choose-position.component';
+import { DialogOverviewComponent } from './dialogoverview/dialogoverview.component';
 
 const appRoutes: Routes = [
     { path: 'customer', component: CustomerComponent },
+    { path: 'user', component: UserComponent },
     { path: '', redirectTo: '/customer', pathMatch: 'full' },
     { path: '**', component: PagenotfoundComponent }
 ];
@@ -39,6 +41,8 @@ const appRoutes: Routes = [
     UserComponent,
     LoginComponent,
     PagenotfoundComponent,
+    ChoosePositionComponent,
+    DialogOverviewComponent,
   ],
   imports: [
     BrowserModule,
