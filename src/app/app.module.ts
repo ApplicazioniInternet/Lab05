@@ -21,11 +21,13 @@ import { RouterModule, Routes } from '@angular/router';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 import { ChoosePositionComponent } from './user/choose-position/choose-position.component';
 import { DialogOverviewComponent } from './dialogoverview/dialogoverview.component';
+import { ToolbarComponent } from './toolbar/toolbar.component';
 
 const appRoutes: Routes = [
-    { path: 'customer', component: CustomerComponent },
+    // { path: '', redirectTo: '', pathMatch: 'full' },
     { path: 'user', component: UserComponent },
-    { path: '', redirectTo: '/customer', pathMatch: 'full' },
+    { path: 'admin', component: AdminComponent },
+    { path: 'customer', component: CustomerComponent },
     { path: '**', component: PagenotfoundComponent }
 ];
 
@@ -43,6 +45,7 @@ const appRoutes: Routes = [
     PagenotfoundComponent,
     ChoosePositionComponent,
     DialogOverviewComponent,
+    ToolbarComponent,
   ],
   imports: [
     BrowserModule,

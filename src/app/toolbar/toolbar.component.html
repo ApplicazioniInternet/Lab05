@@ -1,0 +1,25 @@
+<mat-toolbar color="primary"> <!-- Inizio della toolbar -->
+  <div class="row">
+    <div class="flex-item"><button mat-button [matMenuTriggerFor]="menu">Menu</button>
+      <mat-menu #menu="matMenu">
+        <button routerLink="/user" mat-menu-item>User</button>
+        <button routerLink="/customer" mat-menu-item>Customer</button>
+      </mat-menu>
+    </div>
+
+    <div class="flex-item">
+      <p>{{_toolbarTitle}}</p>
+    </div>
+
+    <div class="flex-item">
+      <button mat-icon-button
+              matTooltip="Mostra profilo">
+        <mat-icon>account_circle</mat-icon>
+      </button>
+      <button mat-icon-button
+              matTooltip="Logout">
+        <mat-icon>power_settings_new</mat-icon>
+      </button>
+    </div>
+  </div>
+</mat-toolbar> <!-- Fine della toolbar -->
