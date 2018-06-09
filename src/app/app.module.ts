@@ -24,12 +24,14 @@ import { DialogOverviewComponent } from './shared-components/dialog-overview/dia
 import { ToolbarComponent } from './shared-components/toolbar/toolbar.component';
 import { UserMapComponent } from './user/user-map/user-map.component';
 import { UpdateFileComponent } from './shared-components/update-file/update-file.component';
+import { AuthGuardService } from './authorization/auth-guard.service';
 
 const appRoutes: Routes = [
-    // { path: '', redirectTo: '', pathMatch: 'full' },
+    { path: '', redirectTo: 'login', pathMatch: 'full' },
     { path: 'user', component: UserComponent },
     { path: 'admin', component: AdminComponent },
-    { path: 'customer', component: CustomerComponent },
+    { path: 'customer', component: CustomerComponent, canActivate: [AuthGuardService] },
+    { path: 'login', component: LoginComponent},
     { path: '**', component: PagenotfoundComponent }
 ];
 
