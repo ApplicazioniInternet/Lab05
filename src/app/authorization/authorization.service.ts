@@ -38,6 +38,8 @@ export class AuthorizationService {
                   console.log(data);
                   if (this.redirectUrl) {
                       this._router.navigate([this.redirectUrl]);
+                  } else {
+                      this._router.navigate(['/']);
                   }
               },
               err => {
@@ -50,6 +52,10 @@ export class AuthorizationService {
       const expireDate = new Date().getTime() + (1000 * token.expires_in);
       localStorage.setItem('access_token', token.access_token);
       localStorage.setItem('access_token_expire', expireDate.toString());
-      this._router.navigate(['/']);
+  }
+
+
+  logout(): void {
+      localStorage.removeItem('access_token');
   }
 }

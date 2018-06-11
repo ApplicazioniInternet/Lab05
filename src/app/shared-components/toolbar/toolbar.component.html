@@ -14,11 +14,15 @@
 
     <div class="flex-item">
       <button mat-icon-button
-              matTooltip="Mostra profilo">
+              matTooltip='Login'
+              routerLink="/login"
+      *ngIf="!loggedIn">
         <mat-icon>account_circle</mat-icon>
       </button>
       <button mat-icon-button
-              matTooltip="Logout">
+              matTooltip='Logout'
+              (click)='logout()'
+              *ngIf="loggedIn">
         <mat-icon>power_settings_new</mat-icon>
       </button>
     </div>
