@@ -7,9 +7,16 @@ import {Router} from '@angular/router';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
+  toolbarTitle = 'Login';
   public loginData = {username: '', password: ''};
   constructor(private authService: AuthorizationService,  private router: Router) {}
+
+  ngOnInit () {
+    if (this.authService.isAuthenticated()) {
+        this.router.navigate(['/']);
+    }
+  }
 
   login(): void {
       this.authService.obtainAccessToken(this.loginData);
