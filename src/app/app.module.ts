@@ -33,7 +33,7 @@ const appRoutes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
     { path: 'user', component: UserComponent, canActivate: [AuthGuardService] },
     { path: 'admin', component: AdminComponent, canActivate: [AuthGuardService] },
-    { path: 'customer', component: CustomerComponent},
+    { path: 'customer', component: CustomerComponent, canActivate: [AuthGuardService] },
     { path: 'login', component: LoginComponent},
     { path: '**', component: PagenotfoundComponent }
 ];
