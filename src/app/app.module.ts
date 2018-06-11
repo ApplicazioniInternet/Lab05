@@ -10,6 +10,9 @@ import { LeafletDrawModule } from '@asymmetrik/ngx-leaflet-draw';
 import { MapComponent } from './customer/map/map.component';
 import { ChooseAreaComponent } from './customer/choose-area/choose-area.component';
 import { PositionsBoughtComponent } from './customer/positions-bought/positions-bought.component';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { JwtModule } from '@auth0/angular-jwt';
 
 import { ReactiveFormsModule } from '@angular/forms';
 import { CustomerComponent } from './customer/customer.component';
@@ -27,13 +30,17 @@ import { UpdateFileComponent } from './shared-components/update-file/update-file
 import { AuthGuardService } from './authorization/auth-guard.service';
 
 const appRoutes: Routes = [
-    { path: '', redirectTo: 'login', pathMatch: 'full' },
-    { path: 'user', component: UserComponent },
-    { path: 'admin', component: AdminComponent },
-    { path: 'customer', component: CustomerComponent, canActivate: [AuthGuardService] },
+    { path: '', redirectTo: 'home', pathMatch: 'full' },
+    { path: 'user', component: UserComponent, canActivate: [AuthGuardService] },
+    { path: 'admin', component: AdminComponent, canActivate: [AuthGuardService] },
+    { path: 'customer', component: CustomerComponent},
     { path: 'login', component: LoginComponent},
     { path: '**', component: PagenotfoundComponent }
 ];
+
+export function tokenGetter() {
+    return localStorage.getItem('access_token');
+}
 
 @NgModule({
   declarations: [
@@ -59,12 +66,19 @@ const appRoutes: Routes = [
     MaterialModule,
     LeafletModule.forRoot(),
     LeafletModule,
+    HttpClientModule,
+    JwtModule.forRoot({
+        config: {
+            tokenGetter: tokenGetter,
+            whitelistedDomains: ['localhost:8080'],
+            blacklistedRoutes: ['localhost:8080/oauth/']
+        }
+    }),
+    FormsModule,
     LeafletDrawModule.forRoot(),
     ReactiveFormsModule,
     MaterialModule,
-    RouterModule.forRoot(appRoutes,
-        { enableTracing: true }
-        )
+    RouterModule.forRoot(appRoutes)
   ],
   providers: [],
   entryComponents: [DialogOverviewComponent],
