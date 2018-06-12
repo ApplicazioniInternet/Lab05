@@ -30,12 +30,10 @@ export class AuthorizationService {
           })
       };
 
-      console.log(params.toString());
       this._http.post('http://localhost:8080/oauth/token', params.toString(), httpOptions)
           .subscribe(
               data => {
                   this.saveToken(data);
-                  console.log(data);
                   if (this.redirectUrl) {
                       this._router.navigate([this.redirectUrl]);
                   } else {
@@ -43,7 +41,7 @@ export class AuthorizationService {
                   }
               },
               err => {
-                  console.log('Errore richiesta token oauth2');
+                  alert('login fallito');
                   console.log(err);
               });
   }

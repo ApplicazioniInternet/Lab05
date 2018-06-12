@@ -11,7 +11,7 @@ import { MapComponent } from './customer/map/map.component';
 import { ChooseAreaComponent } from './customer/choose-area/choose-area.component';
 import { PositionsBoughtComponent } from './customer/positions-bought/positions-bought.component';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { JwtModule } from '@auth0/angular-jwt';
 
 import { ReactiveFormsModule } from '@angular/forms';
@@ -29,6 +29,7 @@ import { UserMapComponent } from './user/user-map/user-map.component';
 import { UpdateFileComponent } from './shared-components/update-file/update-file.component';
 import { AuthGuardService } from './authorization/auth-guard.service';
 import { HomeComponent } from './home/home.component';
+import {TokenInterceptor} from './authorization/token.interceptor';
 
 const appRoutes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -83,7 +84,13 @@ export function tokenGetter() {
     MaterialModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [],
+  providers: [
+      {
+          provide: HTTP_INTERCEPTORS,
+          useClass: TokenInterceptor,
+          multi: true
+      }
+  ],
   entryComponents: [DialogOverviewComponent],
   bootstrap: [AppComponent]
 })
