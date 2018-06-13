@@ -22,6 +22,7 @@
       <button mat-icon-button
               matTooltip='Logout'
               (click)='logout()'
+              routerLink="/home"
               *ngIf="loggedIn">
         <mat-icon>power_settings_new</mat-icon>
       </button>

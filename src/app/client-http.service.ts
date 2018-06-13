@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import {User} from './User';
 
 @Injectable({
   providedIn: 'root'
@@ -12,11 +13,14 @@ export class ClientHttpService {
 
     // Uses http.get() to load data from a single API endpoint
     getPositions(): Observable<Position[]> {
-        return this.http.get<Position[]>(this.path + '/secured/user/positions')
-            // .subscribe(
-            //     data => data.toString(),
-            //     err => console.error(err)
-            // )
-            ;
+        return this.http.get<Position[]>(this.path + '/secured/admin/positions');
+    }
+
+    getUsers(): Observable<User[]> {
+        return this.http.get<User[]>(this.path + '/secured/admin/users');
+    }
+
+    getUserPositions(id: number): Observable<Position[]> {
+        return this.http.get<Position[]>(this.path + '/secured/admin/users/' + id + '/positions');
     }
 }
