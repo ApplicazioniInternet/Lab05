@@ -50,12 +50,10 @@
           >
             <mat-expansion-panel-header>
               <mat-panel-title>
-                Posizione: {{position.id}}
+                Posizione {{position.id}}
               </mat-panel-title>
-              <mat-panel-description>
-                {{panelOpenState2 ?  'Clicca per chiudere i dettagli della posizione' : 'Clicca per vedere i dettagli della posizione'}}
-              </mat-panel-description>
             </mat-expansion-panel-header>
+            <p><span>Utente: </span>{{position.userId}}</p>
             <p><span>Latitudine: </span>{{position.latitude}}</p>
             <p><span>Longitudine: </span>{{position.longitude}}</p>
             <p><span>Date: </span>{{getDate(position.timestamp)}}</p>
