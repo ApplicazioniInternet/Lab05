@@ -25,15 +25,13 @@ import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 import { ChoosePositionComponent } from './user/choose-position/choose-position.component';
 import { DialogOverviewComponent } from './shared-components/dialog-overview/dialog-overview.component';
 import { ToolbarComponent } from './shared-components/toolbar/toolbar.component';
-import { UserMapComponent } from './user/user-map/user-map.component';
 import { UpdateFileComponent } from './shared-components/update-file/update-file.component';
 import { AuthGuardService } from './authorization/auth-guard.service';
 import { HomeComponent } from './home/home.component';
 import {TokenInterceptor} from './authorization/token.interceptor';
 
 const appRoutes: Routes = [
-    { path: '', redirectTo: 'home', pathMatch: 'full' },
-    { path: 'home', component: HomeComponent },
+    { path: '', redirectTo: 'login', pathMatch: 'full' },
     { path: 'user', component: UserComponent, canActivate: [AuthGuardService] },
     { path: 'admin', component: AdminComponent, canActivate: [AuthGuardService] },
     { path: 'customer', component: CustomerComponent, canActivate: [AuthGuardService] },
@@ -60,7 +58,6 @@ export function tokenGetter() {
     ChoosePositionComponent,
     DialogOverviewComponent,
     ToolbarComponent,
-    UserMapComponent,
     UpdateFileComponent,
     HomeComponent,
   ],

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import {User} from './user';
+import {Position} from './position';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,11 @@ export class ClientHttpService {
         return this.http.get<User[]>(this.path + '/secured/admin/users');
     }
 
-    getUserPositions(id: number): Observable<Position[]> {
+    getUserPositions(): Observable<Position[]> {
+        return this.http.get<Position[]>(this.path + '/secured/user/positions');
+    }
+
+    getUsersPositions(id: number): Observable<Position[]> {
         return this.http.get<Position[]>(this.path + '/secured/admin/users/' + id + '/positions');
     }
 }

@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {Observable} from 'rxjs';
+import {ClientHttpService} from '../client-http.service';
+import {Position} from '../position';
 
 @Component({
   selector: 'app-user',
@@ -7,10 +10,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserComponent implements OnInit {
   toolbarTitle = 'User';
+  positions$: Observable<Position[]>;
 
-  constructor() { }
+  constructor(private client: ClientHttpService ) { }
 
   ngOnInit() {
+      this.positions$ = this.client.getUserPositions();
   }
 
+  getDate(timestamp: number): string {
+      return new Date(timestamp).toLocaleString();
+  }
 }

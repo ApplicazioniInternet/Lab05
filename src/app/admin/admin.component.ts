@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ClientHttpService} from '../client-http.service';
 import {Observable} from 'rxjs';
 import {User} from '../user';
-import {MatTableDataSource} from '@angular/material';
+import {Position} from '../position';
 
 @Component({
   selector: 'app-admin',
@@ -21,8 +21,8 @@ export class AdminComponent implements OnInit {
     this.users$ = this.client.getUsers();
   }
 
-  getUserPositions(id: number) {
-      this.positions$ = this.client.getUserPositions(id);
+  getUsersPositions(id: number) {
+      this.positions$ = this.client.getUsersPositions(id);
   }
 
   getDate(timestamp: number): string {

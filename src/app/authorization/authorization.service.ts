@@ -2,14 +2,15 @@ import { Injectable } from '@angular/core';
 import { Router} from '@angular/router';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import {MatSnackBar} from '@angular/material';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthorizationService {
-  redirectUrl;
 
-  constructor(private _router: Router, private _http: HttpClient, public jwtHelper: JwtHelperService) { }
+  constructor(private _router: Router, private _http: HttpClient,
+              public jwtHelper: JwtHelperService, public snackBar: MatSnackBar) { }
 
   isAuthenticated(): boolean {
     const token = this.jwtHelper.tokenGetter();
@@ -36,26 +37,60 @@ export class AuthorizationService {
           .subscribe(
               data => {
                   this.saveToken(data);
-                  if (this.redirectUrl) {
-                      this._router.navigate([this.redirectUrl]);
-                  } else {
-                      this._router.navigate(['/']);
-                  }
+                  this.redirect();
               },
               err => {
-                  alert('login fallito');
+                  this.openSnackBar('Login fallito', 'OK');
                   console.log(err);
               });
   }
 
   saveToken(token) {
+      let role;
       const expireDate = new Date().getTime() + (1000 * token.expires_in);
+
+      switch (token.authorities) {
+          case 'ROLE_USER':
+              role = '/user';
+              break;
+          case 'ROLE_ADMIN':
+              role = '/admin';
+              break;
+          case 'ROLE_CUSTOMER':
+              role = '/customer';
+              break;
+          default:
+              break;
+      }
+
       localStorage.setItem('access_token', token.access_token);
+      localStorage.setItem('access_role', role);
       localStorage.setItem('access_token_expire', expireDate.toString());
+
   }
 
+  roleGetter(): string {
+      return localStorage.getItem('access_role');
+  }
 
   logout(): void {
       localStorage.removeItem('access_token');
+      localStorage.removeItem('access_role');
+  }
+
+  openSnackBar(message: string, action: string) {
+      this.snackBar.open(message, action, {
+          duration: 2000,
+      });
+  }
+
+  isAuthorized(uri: string) {
+    return uri === this.roleGetter();
+  }
+
+  redirect() {
+    const commands = [];
+    commands.push(this.roleGetter());
+    this._router.navigate(commands);
   }
 }

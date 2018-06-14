@@ -1,11 +1,6 @@
 <mat-toolbar color="primary"> <!-- Inizio della toolbar -->
   <div class="row">
-    <div class="flex-item"><button mat-button [matMenuTriggerFor]="menu" *ngIf="loggedIn">Menu</button>
-      <mat-menu #menu="matMenu">
-        <button routerLink="/user" mat-menu-item>User</button>
-        <button routerLink="/admin" mat-menu-item>Admin</button>
-        <button routerLink="/customer" mat-menu-item>Customer</button>
-      </mat-menu>
+    <div class="flex-item">
     </div>
 
     <div class="flex-item">
@@ -16,7 +11,7 @@
       <button mat-icon-button
               matTooltip='Logout'
               (click)='logout()'
-              routerLink="/home"
+              routerLink="/"
               *ngIf="loggedIn">
         <mat-icon>power_settings_new</mat-icon>
       </button>

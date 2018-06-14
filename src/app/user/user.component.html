@@ -1,7 +1,35 @@
 <app-toolbar [toolbarTitle]="toolbarTitle"></app-toolbar>
-<div class="bg-map-div"> <!-- Inizio della divisione con la mappa -->
-    <app-user-map></app-user-map>
-    <app-update-file></app-update-file>
+<div class="bg-form-div" >
+    <mat-card class="bg-card">
+        <mat-card-title>
+            Posizioni utente
+        </mat-card-title>
+        <ul class="no-bullet-ul">
+            <mat-accordion>
+                <li *ngFor="let position of (positions$ | async)">
+                    <mat-expansion-panel
+                            [expanded]="false"
+                            (opened)="panelOpenState2 = true"
+                            (closed)="panelOpenState2 = false"
+                    >
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Posizione {{position.id}}
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <p><span>Utente: </span>{{position.userId}}</p>
+                        <p><span>Latitudine: </span>{{position.latitude}}</p>
+                        <p><span>Longitudine: </span>{{position.longitude}}</p>
+                        <p><span>Date: </span>{{getDate(position.timestamp)}}</p>
+                    </mat-expansion-panel>
+                </li>
+            </mat-accordion>
+        </ul>
+
+        <h2 class="no-positions" *ngIf="positions$ === undefined">
+            Nessuna posizione acquistata.
+        </h2>
+    </mat-card>
 </div>
 
 <div class="bg-form-div">
