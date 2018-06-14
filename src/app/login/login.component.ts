@@ -27,6 +27,8 @@ export class LoginComponent implements OnInit {
       if (this.requiredPasswordFormControl.invalid || this.requiredUsernameFormControl.invalid) {
         this.openSnackBar('Devi completate tutti i campi', 'OK');
       } else {
+        this.loginData.username = this.requiredUsernameFormControl.value;
+        this.loginData.password = this.requiredPasswordFormControl.value;
         this.authService.obtainAccessToken(this.loginData);
       }
   }

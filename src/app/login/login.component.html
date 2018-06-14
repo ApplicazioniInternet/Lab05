@@ -5,8 +5,7 @@
       <mat-form-field>
         <input 
           matInput 
-          placeholder="Username" 
-          [(ngModel)]="loginData.username" 
+          placeholder="Username"  
           [formControl]="requiredUsernameFormControl"
           (keyup.enter)="login()"
           required>
@@ -16,8 +15,7 @@
         <input 
           matInput 
           placeholder="Password" 
-          [type]="hide ? 'password' : 'text'" 
-          [(ngModel)]="loginData.password" 
+          [type]="hide ? 'password' : 'text'"  
           [formControl]="requiredPasswordFormControl"
           (keyup.enter)="login()"
           required>
