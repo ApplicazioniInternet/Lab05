@@ -1,5 +1,11 @@
+.card {
+    align-content: center;
+    width: 700px;
+}
 .row {
-    margin: 20px 0;
+    width: 500px;
+    margin: 0 auto;
+    margin-bottom: 10px;
 }
 
 .row button {

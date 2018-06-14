@@ -19,18 +19,18 @@ export class AuthorizationService {
   }
 
   obtainAccessToken(loginData) {
-      const params = new HttpParams()
-          .set('username', loginData.username)
-          .set('password', loginData.password)
-          .set('grant_type', 'password');
-      const httpOptions = {
-          headers: new HttpHeaders({
-              'Authorization': 'Basic ' + btoa('client:password'),
-              'Content-type': 'application/x-www-form-urlencoded'
-          })
-      };
+      const body = new URLSearchParams();
+      body.set('grant_type', 'password');
+      body.set('username', loginData.username);
+      body.set('password', loginData.password);
 
-      this._http.post('http://localhost:8080/oauth/token', params.toString(), httpOptions)
+      const headers = new HttpHeaders();
+      headers.append('Authorization', 'Basic ' + btoa('client:password'));
+      headers.append('Content-type', 'application/x-www-form-urlencoded');
+
+      const httpOptions = { headers };
+
+      this._http.post('http://localhost:8080/oauth/token', body, httpOptions)
           .subscribe(
               data => {
                   this.saveToken(data);

@@ -3,7 +3,7 @@ import { MatSnackBar, MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/
 import { PositionForm } from './position-form';
 import { PositionService } from '../../position.service';
 import { Position } from '../../position';
-import {DialogOverviewComponent} from '../../shared-components/dialog-overview/dialog-overview.component';
+import { DialogOverviewComponent } from '../../shared-components/dialog-overview/dialog-overview.component';
 
 @Component({
   selector: 'app-choose-area',

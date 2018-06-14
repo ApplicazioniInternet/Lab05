@@ -14,12 +14,6 @@
 
     <div class="flex-item">
       <button mat-icon-button
-              matTooltip='Login'
-              routerLink="/login"
-      *ngIf="!loggedIn">
-        <mat-icon>account_circle</mat-icon>
-      </button>
-      <button mat-icon-button
               matTooltip='Logout'
               (click)='logout()'
               routerLink="/home"
