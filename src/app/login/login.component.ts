@@ -3,6 +3,7 @@ import {AuthorizationService} from '../authorization/authorization.service';
 import {Router} from '@angular/router';
 import { FormControl, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
+import {JwtHelperService} from '@auth0/angular-jwt';
 
 @Component({
   selector: 'app-login',
