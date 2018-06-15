@@ -13,6 +13,12 @@
                     matInput
                     [formControl]="textareaForm"
                     (keyup.enter)="submit()"
+                    placeholder='&#123;"location":&#123;
+            "type": "Point",
+            "coordinates": [17.5204200, 75.0326800]
+            &#125;,
+            "timestamp": "1526766939"
+            &#125;'
             >
     </textarea>
         </mat-form-field>
@@ -40,7 +46,7 @@
         </mat-card-title>
         <ul class="no-bullet-ul">
             <mat-accordion>
-                <li *ngFor="let position of (positions$ | async)">
+                <li *ngFor="let position of positions">
                     <mat-expansion-panel
                             [expanded]="false"
                             (opened)="panelOpenState2 = true"
@@ -58,7 +64,7 @@
             </mat-accordion>
         </ul>
 
-        <h2 class="no-positions" *ngIf="positions$ === undefined">
+        <h2 class="no-positions" *ngIf="(positions === undefined || positions.length === 0)">
             Nessuna posizione acquistata.
         </h2>
     </mat-card>

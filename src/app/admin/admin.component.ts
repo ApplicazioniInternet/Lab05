@@ -11,18 +11,24 @@ import {Position} from '../position';
 })
 export class AdminComponent implements OnInit {
   toolbarTitle = 'Admin';
-  positions$: Observable<Position[]>;
-  users$: Observable<User[]>;
+  positions: Position[];
+  users: User[];
   displayedColumns = ['id', 'username', 'role'];
   constructor( private client: ClientHttpService) { }
 
   ngOnInit() {
-    this.positions$ = this.client.getPositions();
-    this.users$ = this.client.getUsers();
+    this.client.getPositions().subscribe(
+        data => this.positions = data
+    );
+    this.client.getUsers().subscribe(
+        data => this.users = data
+    );
   }
 
   getUsersPositions(id: number) {
-      this.positions$ = this.client.getUsersPositions(id);
+      this.client.getUsersPositions(id).subscribe(
+          data => this.positions = data
+      );
   }
 
   getDate(timestamp: number): string {

@@ -13,12 +13,11 @@ import {MatSnackBar} from '@angular/material';
 export class UserComponent implements OnInit {
   toolbarTitle = 'User';
     textareaForm = new FormControl();
-  positions$: Observable<Position[]>;
-
+  positions: Position[];
   constructor(private client: ClientHttpService, private snackBar: MatSnackBar ) { }
 
   ngOnInit() {
-      this.positions$ = this.client.getUserPositions();
+      this.getPositions();
   }
 
   getDate(timestamp: number): string {
@@ -27,10 +26,25 @@ export class UserComponent implements OnInit {
 
     submit() {
         this.client.uploadPositions(this.textareaForm.value).subscribe(
-            data  => this.openSnackBar('Caricamento riuscito', 'OK'),
-            err  => this.openSnackBar( err.error.message, 'OK')
+            ()  => {
+                this.openSnackBar('Caricamento riuscito', 'OK');
+                this.getPositions();
+            },
+            err  => {
+                if (err.status === 406) {
+                    this.openSnackBar( err.error.message, 'OK');
+                } else {
+                    this.openSnackBar( 'Errore caricamento posizione', 'OK');
+                }
+            }
         );
         this.textareaForm.reset();
+    }
+
+    getPositions() {
+        this.client.getUserPositions().subscribe(
+            data => this.positions = data
+        );
     }
 
     openSnackBar(message: string, action: string) {
