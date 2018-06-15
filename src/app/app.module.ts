@@ -31,12 +31,10 @@ import { HomeComponent } from './home/home.component';
 import {TokenInterceptor} from './authorization/token.interceptor';
 
 const appRoutes: Routes = [
-    { path: '', redirectTo: 'login', pathMatch: 'full' },
     { path: 'user', component: UserComponent, canActivate: [AuthGuardService] },
     { path: 'admin', component: AdminComponent, canActivate: [AuthGuardService] },
     { path: 'customer', component: CustomerComponent, canActivate: [AuthGuardService] },
-    { path: 'login', component: LoginComponent},
-    { path: '**', component: PagenotfoundComponent }
+    { path: '**', component: LoginComponent }
 ];
 
 export function tokenGetter() {
