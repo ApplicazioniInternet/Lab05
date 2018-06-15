@@ -21,7 +21,6 @@ import { UserComponent } from './user/user.component';
 import { LoginComponent } from './login/login.component';
 
 import { RouterModule, Routes } from '@angular/router';
-import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 import { ChoosePositionComponent } from './user/choose-position/choose-position.component';
 import { DialogOverviewComponent } from './shared-components/dialog-overview/dialog-overview.component';
 import { ToolbarComponent } from './shared-components/toolbar/toolbar.component';
@@ -52,7 +51,6 @@ export function tokenGetter() {
     AdminComponent,
     UserComponent,
     LoginComponent,
-    PagenotfoundComponent,
     ChoosePositionComponent,
     DialogOverviewComponent,
     ToolbarComponent,
