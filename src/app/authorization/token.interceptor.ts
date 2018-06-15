@@ -9,14 +9,23 @@ export class TokenInterceptor implements HttpInterceptor {
     constructor(public jwtHelper: JwtHelperService) {}
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-
         const token = this.jwtHelper.tokenGetter();
+
         if (token !== null) {
-            request = request.clone({
-                setHeaders: {
-                    Authorization: 'Bearer' + token
-                }
-            });
+            if (request.method.toLocaleLowerCase() === 'post') {
+                request = request.clone({
+                    setHeaders: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer' + token
+                    }
+                });
+            } else {
+                request = request.clone({
+                    setHeaders: {
+                        'Authorization': 'Bearer' + token
+                    }
+                });
+            }
         }
 
         return next.handle(request);

@@ -1,29 +1,12 @@
-.bg-container {
-    width: 100vw;
-    height: 100vw;
+mat-form-field {
+    font-size: 12px;
+    width: 100%;
+    margin: 10px;
 }
 
 li {
     margin: 10px;
     list-style: none;
-}
-
-.bg-section-compra{
-    padding: 8px;
-}
-
-.bg-section-carrello{
-    padding: 8px;
-}
-
-.bg-form-tab{
-    align-content: center;
-    width: 100%;
-}
-
-.bg-form-card{
-    align-content: center;
-    height: 100%;
 }
 
 .bg-form-div{
@@ -34,28 +17,9 @@ li {
     float: right;
 }
 
-.bg-map-div{
+.bg-upload-div{
     float: left;
     width: 50%;
-}
-
-#menu-item{
-    margin: 4px;
-    align-content: center;
-    text-align: center;
-    vertical-align: baseline;
-}
-
-.bg-bought-card {
-    min-height: 300px;
-}
-
-.bg-map-card {
-    min-height: 600px;
-}
-
-.bg-form-card {
-    min-height: 1000px;
 }
 
 @media screen and (max-width: 991px) {
@@ -65,7 +29,7 @@ li {
         float: none;
     }
 
-    .bg-map-div{
+    .bg-upload-div{
         float: none;
         width: 100%;
     }

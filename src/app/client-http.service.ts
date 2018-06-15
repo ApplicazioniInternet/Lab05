@@ -28,4 +28,8 @@ export class ClientHttpService {
     getUsersPositions(id: number): Observable<Position[]> {
         return this.http.get<Position[]>(this.path + '/secured/admin/users/' + id + '/positions');
     }
+
+    uploadPositions(textarea: string) {
+        return this.http.post(this.path + '/secured/user/positions', textarea, {});
+    }
 }
