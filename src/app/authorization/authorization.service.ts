@@ -13,10 +13,14 @@ export class AuthorizationService {
               public jwtHelper: JwtHelperService, public snackBar: MatSnackBar) { }
 
   isAuthenticated(): boolean {
-    const token = this.jwtHelper.tokenGetter();
-    // Check whether the token is expired and return
-    // true or false
-    return !this.jwtHelper.isTokenExpired(token);
+      const expireDate = localStorage.getItem('access_token_expire');
+      if (expireDate !== null) {
+          if (Number(expireDate) < new Date().valueOf()) {
+              this.obtainRefreshToken();
+          }
+      }
+      const token = this.jwtHelper.tokenGetter();
+      return !this.jwtHelper.isTokenExpired(token);
   }
 
   obtainAccessToken(loginData) {
@@ -45,6 +49,31 @@ export class AuthorizationService {
               });
   }
 
+  obtainRefreshToken() {
+    const params = new HttpParams()
+        .set('refresh_token', localStorage.getItem('refresh_token'))
+        .set('grant_type', 'refresh_token');
+
+    const headersValue = new HttpHeaders()
+        .append('Authorization', 'Basic ' + btoa('client:password'))
+        .append('Content-type', 'application/x-www-form-urlencoded');
+
+    const httpOptions = {
+        headers: headersValue
+    };
+
+    this._http.post('http://localhost:8080/oauth/token', params.toString(), httpOptions)
+        .subscribe(
+            data => {
+                this.saveToken(data);
+                this.redirect();
+            },
+            err => {
+                this.openSnackBar('Login fallito', 'OK');
+                console.log(err);
+            });
+}
+
   saveToken(token) {
       let role;
       const expireDate = new Date().getTime() + (1000 * token.expires_in);
@@ -66,7 +95,7 @@ export class AuthorizationService {
       localStorage.setItem('access_token', token.access_token);
       localStorage.setItem('access_role', role);
       localStorage.setItem('access_token_expire', expireDate.toString());
-
+      localStorage.setItem('refresh_token', token.refresh_token);
   }
 
   roleGetter(): string {
