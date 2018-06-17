@@ -1,5 +1,5 @@
 import { Injectable, Output, EventEmitter } from '@angular/core';
-import { LeafletModule } from '@asymmetrik/ngx-leaflet';
+import { ClientHttpService } from './client-http.service';
 import { icon, latLng, marker, Marker, tileLayer, Map, LayerGroup } from 'leaflet';
 import { Observable, of } from 'rxjs';
 import { POSITIONS } from './mock-positions';
@@ -19,6 +19,7 @@ export class PositionService {
   maxNumberOfVertices = 20;
   markerIconRed;
   markerIconBlue;
+  positionsForSaleBase: Position[] = [];
   positionsForSale: Position[] = []; // Posizioni in vendita
   positionsBought: Position[] = []; // Posizioni comprate
   polygonPosition: Position[] = []; // Posizioni pinnate o scritte nel form
@@ -26,8 +27,8 @@ export class PositionService {
   buyablePositionsMarkers: Marker[] = []; // Marker delle posizioni comprabili
   inputPositionsFromForm: Array<PositionForm> = new Array();
   newPosition: Position = new Position();
-  private _dateMin: number;
-  private _dateMax: number;
+  dateMin: number;
+  dateMax: number;
 
   @Output() addedPositionFromMap: EventEmitter<Position> = new EventEmitter();
   @Output() addedPositionFromForm: EventEmitter<void> = new EventEmitter();
@@ -38,7 +39,7 @@ export class PositionService {
   @Output() clearAllPositions: EventEmitter<void> = new EventEmitter();
   @Output() newPositionsBought: EventEmitter<Position[]> = new EventEmitter();
 
-  constructor() {
+  constructor(private client: ClientHttpService) {
     // Marker per le posizioni degli utenti che sono sulla mappa
     this.markerIconRed = icon({
       iconSize: [25, 41],
@@ -57,18 +58,22 @@ export class PositionService {
       shadowUrl: this.SHADOW_URL
     });
 
-    this._dateMin = new Date(2018, 4, 25).valueOf();
-    this._dateMax = new Date().valueOf();
+    this.dateMin = new Date(2018, 4, 25).valueOf() / 1000;
+    this.dateMax = new Date().valueOf() / 1000;
 
-    POSITIONS.forEach(p => {
-      if (p.timestamp > this.dateMin && p.timestamp < this.dateMax) {
-        const newMarker = marker(latLng(p.latitude, p.longitude),
-            {icon: this.markerIconRed})
+    this.client.getBuyablePositions().subscribe(positions => {
+      positions.forEach(p => {
+        if (p.timestamp > this.dateMin && p.timestamp < this.dateMax ) {
+          const newMarker = marker(latLng(p.latitude, p.longitude),
+            { icon: this.markerIconRed })
             .bindPopup('<b>Coordinate:</b><br>LatLng(' + p.latitude + ', ' + p.longitude + ')<br>'
-                + new Date(p.timestamp).toLocaleString());
-        this.buyablePositionsMarkers.push(newMarker);
-        this.positionsForSale.push(p);
-      }
+              + new Date(p.timestamp * 1000).toLocaleString());
+          this.buyablePositionsMarkers.push(newMarker);
+          this.positionsForSaleBase.push(p);
+          this.positionsForSale.push(p);
+          this.addedPositionForSale.emit(newMarker);
+        }
+      });
     });
 
     this.initNewPosition();
@@ -81,11 +86,11 @@ export class PositionService {
   }
 
   getPositionsForSale(): Observable<Position[]> {
-    return of(POSITIONS);
+    return this.client.getBuyablePositions();
   }
 
   getPositionsBought(): Observable<Position[]> {
-    return of(this.positionsBought);
+    return this.client.getPositionsBought();
   }
 
   getPositionsForSaleMarkers(): Observable<Marker[]> {
@@ -146,19 +151,18 @@ export class PositionService {
       }
     });
 
+    this.client.buyPositions(polygon, this.dateMax, this.dateMax);
     this.newPositionsBought.emit(this.positionsBought);
   }
 
   verifySales() {
-    let index = this.positionsForSale.length - 1;
-    for (index; index >= 0; index--) {
-      if (this.positionsForSale[index].timestamp < this.dateMin
-          || this.positionsForSale[index].timestamp > this.dateMax) {
+    this.positionsForSale.forEach((p, index) => {
+      if (p.timestamp < this.dateMin || p.timestamp > this.dateMax) {
         this.removeSale(index);
       }
-    }
+    });
 
-    POSITIONS.forEach( (p) => {
+    this.positionsForSaleBase.forEach( (p) => {
       const i = this.positionsForSale.indexOf(p);
       if (p.timestamp > this.dateMin && p.timestamp < this.dateMax && i === -1) {
           this.newSale(p);
@@ -257,21 +261,5 @@ export class PositionService {
 
   canBeDeleted(mark: Marker): boolean {
     return this.buyablePositionsMarkers.indexOf(mark) !== -1;
-  }
-
-  get dateMin(): number {
-    return this._dateMin;
-  }
-
-  set dateMin(value: number) {
-      this._dateMin = value;
-  }
-
-  get dateMax(): number {
-      return this._dateMax;
-  }
-
-  set dateMax(value: number) {
-      this._dateMax = value;
   }
 }

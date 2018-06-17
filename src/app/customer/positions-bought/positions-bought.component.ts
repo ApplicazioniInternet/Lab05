@@ -17,6 +17,8 @@ export class PositionsBoughtComponent implements OnInit {
       this.positions = new Array<Position>();
       this.positions = positionBought;
     });
+
+    this.positionService.getPositionsBought().subscribe(positions => this.positions = positions);
   }
 
   getDate(timestamp: number): string {

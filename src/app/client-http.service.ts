@@ -32,4 +32,26 @@ export class ClientHttpService {
     uploadPositions(textarea: string) {
         return this.http.post(this.path + '/secured/user/positions', textarea, {});
     }
+
+    buyPositions(polygon: Position[], timestampBefore: number, timestampAfter: number) {
+        const longlatArray = polygon.map((x) => [x.longitude, x.latitude]);
+        const json = {
+            'timestampBefore': timestampBefore,
+            'timestampAfter': timestampAfter,
+            'area': {
+                'type': 'Polygon',
+                'coordinates': [longlatArray]
+            }
+        };
+        console.log(JSON.stringify(json));
+        return this.http.post(this.path + '/secured/customer/positions/buy', json);
+    }
+
+    getPositionsBought(): Observable<Position[]> {
+        return this.http.get<Position[]>(this.path + '/secured/customer/positions/purchased');
+    }
+
+    getBuyablePositions(): Observable<Position[]> {
+        return this.http.get<Position[]>(this.path + '/secured/customer/buyable/positions');
+    }
 }
