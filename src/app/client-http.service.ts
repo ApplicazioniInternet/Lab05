@@ -44,7 +44,7 @@ export class ClientHttpService {
             }
         };
         console.log(JSON.stringify(json));
-        return this.http.post(this.path + '/secured/customer/positions/buy', json);
+        return this.http.post(this.path + '/secured/customer/positions/buy', json, {});
     }
 
     getPositionsBought(): Observable<Position[]> {
