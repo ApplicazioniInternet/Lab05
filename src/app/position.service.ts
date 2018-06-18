@@ -61,20 +61,7 @@ export class PositionService {
     this.dateMin = new Date(2018, 4, 25).valueOf() / 1000;
     this.dateMax = new Date().valueOf() / 1000;
 
-    this.client.getBuyablePositions().subscribe(positions => {
-      positions.forEach(p => {
-        if (p.timestamp > this.dateMin && p.timestamp < this.dateMax ) {
-          const newMarker = marker(latLng(p.latitude, p.longitude),
-            { icon: this.markerIconRed })
-            .bindPopup('<b>Coordinate:</b><br>LatLng(' + p.latitude + ', ' + p.longitude + ')<br>'
-              + new Date(p.timestamp * 1000).toLocaleString());
-          this.buyablePositionsMarkers.push(newMarker);
-          this.positionsForSaleBase.push(p);
-          this.positionsForSale.push(p);
-          this.addedPositionForSale.emit(newMarker);
-        }
-      });
-    });
+    this.getPositionsToBuy();
 
     this.initNewPosition();
    }
@@ -156,18 +143,10 @@ export class PositionService {
   }
 
   verifySales() {
-    this.positionsForSale.forEach((p, index) => {
-      if (p.timestamp < this.dateMin || p.timestamp > this.dateMax) {
-        this.removeSale(index);
-      }
-    });
-
-    this.positionsForSaleBase.forEach( (p) => {
-      const i = this.positionsForSale.indexOf(p);
-      if (p.timestamp > this.dateMin && p.timestamp < this.dateMax && i === -1) {
-          this.newSale(p);
-      }
-    });
+    this.buyablePositionsMarkers = [];
+    this.positionsForSaleBase = [];
+    this.positionsForSale = [];
+    this.getPositionsToBuy();
   }
 
   newSale(position: Position): void {
@@ -261,5 +240,22 @@ export class PositionService {
 
   canBeDeleted(mark: Marker): boolean {
     return this.buyablePositionsMarkers.indexOf(mark) !== -1;
+  }
+
+  private getPositionsToBuy() {
+    this.client.getBuyablePositions().subscribe(positions => {
+      positions.forEach(p => {
+        if (p.timestamp > this.dateMin && p.timestamp < this.dateMax ) {
+          const newMarker = marker(latLng(p.latitude, p.longitude),
+            { icon: this.markerIconRed })
+            .bindPopup('<b>Coordinate:</b><br>LatLng(' + p.latitude + ', ' + p.longitude + ')<br>'
+              + new Date(p.timestamp * 1000).toLocaleString());
+          this.buyablePositionsMarkers.push(newMarker);
+          this.positionsForSaleBase.push(p);
+          this.positionsForSale.push(p);
+          this.addedPositionForSale.emit(newMarker);
+        }
+      });
+    });
   }
 }

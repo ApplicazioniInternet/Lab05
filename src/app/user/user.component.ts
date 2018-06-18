@@ -27,6 +27,7 @@ export class UserComponent implements OnInit {
         this.client.uploadPositions(this.textareaForm.value).subscribe(
             ()  => {
                 this.openSnackBar('Caricamento riuscito', 'OK');
+                this.textareaForm.reset();
                 this.getPositions();
             },
             err  => {
@@ -37,7 +38,6 @@ export class UserComponent implements OnInit {
                 }
             }
         );
-        this.textareaForm.reset();
         }
 
     getPositions() {

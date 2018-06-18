@@ -51,8 +51,8 @@ export class AuthorizationService {
 
   obtainRefreshToken() {
     const params = new HttpParams()
-        .set('refresh_token', localStorage.getItem('refresh_token'))
-        .set('grant_type', 'refresh_token');
+      .set('grant_type', 'refresh_token')
+      .set('refresh_token', localStorage.getItem('refresh_token'));
 
     const headersValue = new HttpHeaders()
         .append('Authorization', 'Basic ' + btoa('client:password'))
