@@ -57,7 +57,7 @@ export class ClientHttpService {
      * @param timestampAfter = timestamp prima del quale non ci interessano più le posizioni
      */
     buyPositions(polygon: Position[], timestampBefore: number, timestampAfter: number): Observable<Position[]> {
-        const longlatArray = polygon.map((x) => [x.latitude, x.longitude]);
+        const longlatArray = polygon.map((x) => [x.longitude, x.latitude]);
         longlatArray.push(longlatArray[0]); // Per chiudere il poligono
         const json = {
             'timestampBefore': timestampBefore.toString(), // Da mettere come stringa
@@ -67,6 +67,7 @@ export class ClientHttpService {
                 'coordinates': [longlatArray]
             }
         };
+        console.log(JSON.stringify(json));
         return this.http.post<Position[]>(this.path + '/secured/customer/positions/buy', json, {});
     }
 

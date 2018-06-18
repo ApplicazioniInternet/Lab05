@@ -73,7 +73,7 @@
                             </mat-panel-title>
                         </mat-expansion-panel-header>
                         <p><span>Id Posizione: </span>{{position.id}}</p>
-                        <p><span>Date: </span>{{getDate(position.timestamp)}}</p>
+                        <p><span>Date: </span>{{getDate(position.timestamp*1000)}}</p>
                     </mat-expansion-panel>
                 </li>
             </mat-accordion>

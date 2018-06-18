@@ -246,9 +246,9 @@ export class PositionService {
     this.client.getBuyablePositions().subscribe(positions => {
       positions.forEach(p => {
         if (p.timestamp > this.dateMin && p.timestamp < this.dateMax ) {
-          const newMarker = marker(latLng(p.longitude, p.latitude),
+          const newMarker = marker(latLng(p.latitude, p.longitude),
             { icon: this.markerIconRed })
-            .bindPopup('<b>Coordinate:</b><br>LatLng(' + p.longitude + ', ' + p.latitude + ')<br>'
+            .bindPopup('<b>Coordinate:</b><br>LatLng(' + p.latitude + ', ' + p.longitude + ')<br>'
               + new Date(p.timestamp * 1000).toLocaleString());
           this.buyablePositionsMarkers.push(newMarker);
           this.positionsForSaleBase.push(p);
