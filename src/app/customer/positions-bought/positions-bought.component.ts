@@ -14,11 +14,19 @@ export class PositionsBoughtComponent implements OnInit {
 
   ngOnInit() {
     this.positionService.newPositionsBought.subscribe(positionBought => {
-      this.positions = new Array<Position>();
-      this.positions = positionBought;
+      this.positions = []; // Lo reinizializzo onde evitare problemi
+      positionBought.forEach(element => {
+        const pos = new Position(element.id, element.longitude, element.latitude, element.timestamp * 1000, element.userId);
+        this.positions.push(pos);
+      });
     });
 
-    this.positionService.getPositionsBought().subscribe(positions => this.positions = positions);
+    this.positionService.getPositionsBought().subscribe(positions => { // Questo viene chiamato solo alla creazione
+      positions.forEach(element => {
+        const pos = new Position(element.id, element.longitude, element.latitude, element.timestamp * 1000, element.userId);
+        this.positions.push(pos);
+      });
+    });
   }
 
   getDate(timestamp: number): string {

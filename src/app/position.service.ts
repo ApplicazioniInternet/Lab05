@@ -59,7 +59,7 @@ export class PositionService {
     });
 
     this.dateMin = new Date(2018, 4, 25).valueOf() / 1000;
-    this.dateMax = new Date().valueOf() / 1000;
+    this.dateMax = new Date(2039, 12, 31).valueOf() / 1000;
 
     this.getPositionsToBuy();
 
@@ -132,14 +132,14 @@ export class PositionService {
   }
 
   buyPositionsInArea(polygon: Position[]) {
-    this.getPositionsInPolygon(this.polygonPosition).forEach(element => {
-      if (this.positionsBought.indexOf(element, 0) === -1) {
-        this.positionsBought.push(element);
-      }
+    this.client.buyPositions(polygon, this.dateMax, this.dateMin).subscribe(positions => {
+      positions.forEach(element => {
+        if (this.positionsBought.indexOf(element, 0) === -1) {
+          this.positionsBought.push(element);
+        }
+      });
+      this.newPositionsBought.emit(this.positionsBought);
     });
-
-    this.client.buyPositions(polygon, this.dateMax, this.dateMax);
-    this.newPositionsBought.emit(this.positionsBought);
   }
 
   verifySales() {
@@ -170,8 +170,8 @@ export class PositionService {
   }
 
   private isPositionsInPolygon(point: Position, polygon: Position[]): Boolean {
-    const x = point.longitude;
-    const y = point.latitude;
+    const x = point.latitude;
+    const y = point.longitude;
 
     let inside = false;
     for (let i = 0, j = polygon.length - 1; i < polygon.length; j = i++) {
@@ -248,7 +248,7 @@ export class PositionService {
         if (p.timestamp > this.dateMin && p.timestamp < this.dateMax ) {
           const newMarker = marker(latLng(p.longitude, p.latitude),
             { icon: this.markerIconRed })
-            .bindPopup('<b>Coordinate:</b><br>LatLng(' + p.latitude + ', ' + p.longitude + ')<br>'
+            .bindPopup('<b>Coordinate:</b><br>LatLng(' + p.longitude + ', ' + p.latitude + ')<br>'
               + new Date(p.timestamp * 1000).toLocaleString());
           this.buyablePositionsMarkers.push(newMarker);
           this.positionsForSaleBase.push(p);

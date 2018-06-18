@@ -179,11 +179,14 @@ export class MapComponent implements OnInit {
   }
 
   // Funzione per pulire la mappa
-  clearMap(): void {
+  clearMap(force?: boolean): void {
+    if (force === undefined) {
+      force = false;
+    }
     this.map.eachLayer((layer) => {
       if (layer instanceof Marker) {
         const m: Marker = layer;
-        if (!this.positionService.canBeDeleted(m)) {
+        if (!this.positionService.canBeDeleted(m) || force) {
           this.map.removeLayer(layer);
         }
       }
@@ -228,6 +231,7 @@ export class MapComponent implements OnInit {
       this.openSnackBar('La data di inizio deve essere minore della data di fine', 'OK');
       return;
     }
+    this.clearMap(true);
     this.positionService.verifySales();
   }
 
