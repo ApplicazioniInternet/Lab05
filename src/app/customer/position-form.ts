@@ -1,5 +1,5 @@
 import { FormControl, Validators, Form, FormGroup,  } from '@angular/forms';
-import { Position } from '../../position';
+import { Position } from '../position';
 import { ElementRef } from '@angular/core';
 
 export class PositionForm {

@@ -7,9 +7,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { LeafletDrawModule } from '@asymmetrik/ngx-leaflet-draw';
-import { MapComponent } from './customer/map/map.component';
-import { ChooseAreaComponent } from './customer/choose-area/choose-area.component';
-import { PositionsBoughtComponent } from './customer/positions-bought/positions-bought.component';
 import { FormsModule } from '@angular/forms';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { JwtModule } from '@auth0/angular-jwt';
@@ -41,9 +38,6 @@ export function tokenGetter() {
 @NgModule({
   declarations: [
     AppComponent,
-    MapComponent,
-    ChooseAreaComponent,
-    PositionsBoughtComponent,
     DialogOverviewComponent,
     CustomerComponent,
     AdminComponent,

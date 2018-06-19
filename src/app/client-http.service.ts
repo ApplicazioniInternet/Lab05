@@ -67,7 +67,6 @@ export class ClientHttpService {
                 'coordinates': [longlatArray]
             }
         };
-        console.log(JSON.stringify(json));
         return this.http.post<Position[]>(this.path + '/secured/customer/positions/buy', json, {});
     }
 

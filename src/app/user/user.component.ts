@@ -33,6 +33,8 @@ export class UserComponent implements OnInit {
             err  => {
                 if (err.status === 406) {
                     this.openSnackBar( err.error.message, 'OK');
+                } else if (err.status === 400) {
+                  this.openSnackBar( 'Dati incorretti inseriti', 'OK');
                 } else {
                     this.openSnackBar( 'Errore caricamento posizione', 'OK');
                 }

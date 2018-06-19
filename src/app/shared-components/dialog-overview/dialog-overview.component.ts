@@ -24,16 +24,17 @@ export class DialogOverviewComponent implements OnInit {
         this.dialogRef.close();
     }
 
-    onConfermaClick(): void {
-        this.positionService.buyPositionsInArea(this.positionService.polygonPosition);
-        // Callback per quando si chiude il dialog
-        this.dialogRef.afterClosed().subscribe(result => {
-            this.positionService.notifyRemoveAllPosition();
-        });
-        this.dialogRef.close();
+    confermaAcquistoPosizioni(): void {
+      this.positionService.buyPositionsInArea(this.positionService.polygonPositions);
+
+      this.dialogRef.afterClosed().subscribe(() => {
+        this.positionService.notifyRemoveAllPosition();
+      });
+
+      this.dialogRef.close();
     }
 
     getNumberOfPositionsInArea(): number {
-        return this.positionService.countPositionsInPolygon(this.positionService.polygonPosition);
+        return this.positionService.countPositionsInPolygon(this.positionService.polygonPositions);
     }
 }

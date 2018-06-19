@@ -14,15 +14,15 @@ export class TokenInterceptor implements HttpInterceptor {
       if (request.url !== 'http://localhost:8080/oauth/token' && token !== null) {
         if (request.method.toLocaleLowerCase() === 'post') {
           request = request.clone({
-            setHeaders: {
+          setHeaders: {
               'Content-Type': 'application/json',
-              'Authorization': 'Bearer' + token
+              'Authorization': 'Bearer ' + token
             }
           });
         } else {
           request = request.clone({
             setHeaders: {
-              'Authorization': 'Bearer' + token
+              'Authorization': 'Bearer ' + token
             }
           });
         }
