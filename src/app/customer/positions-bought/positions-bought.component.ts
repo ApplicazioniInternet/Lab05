@@ -10,7 +10,9 @@ import { PositionService } from '../../position.service';
 export class PositionsBoughtComponent implements OnInit {
   positions: Position[] = new Array<Position>();
 
-  constructor(private positionService: PositionService) { }
+  constructor(private positionService: PositionService) {
+    this.getBoughtPositions();
+   }
 
   ngOnInit() {
     this.positionService.newPositionsBought.subscribe(positionBought => {
