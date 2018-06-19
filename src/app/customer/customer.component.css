@@ -47,10 +47,6 @@ mat-expansion-panel{
     width: 100%;
 }
 
-.container{
-    width: 100%;
-}
-
 .no-positions {
     width: 100%;
     display: block;
@@ -61,7 +57,6 @@ mat-expansion-panel{
     color: grey;
     font-style: italic;
 }
-
 
 #map-id {
     height: 500px;
