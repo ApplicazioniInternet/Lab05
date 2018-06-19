@@ -1,6 +1,5 @@
-import { FormControl, Validators, Form, FormGroup,  } from '@angular/forms';
+import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { Position } from '../position';
-import { ElementRef } from '@angular/core';
 
 export class PositionForm {
     id: number;
@@ -114,12 +113,5 @@ export class PositionForm {
     save(): void {
         this.positionValue.latitude = this.group.get('latitude').value;
         this.positionValue.longitude = this.group.get('longitude').value;
-    }
-
-    emptyForm(): void {
-        this.positionValue.latitude = undefined;
-        this.positionValue.longitude = undefined;
-        this.group.get('latitude').setValue(undefined);
-        this.group.get('longitude').setValue(undefined);
     }
 }

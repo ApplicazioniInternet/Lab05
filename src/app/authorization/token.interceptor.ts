@@ -9,7 +9,8 @@ export class TokenInterceptor implements HttpInterceptor {
     constructor(public jwtHelper: JwtHelperService) {}
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    	const token = this.jwtHelper.tokenGetter();
+
+      const token = this.jwtHelper.tokenGetter();
 
       if (request.url !== 'http://localhost:8080/oauth/token' && token !== null) {
         if (request.method.toLocaleLowerCase() === 'post') {

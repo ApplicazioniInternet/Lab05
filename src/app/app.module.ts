@@ -20,7 +20,6 @@ import { LoginComponent } from './authorization/login/login.component';
 import { RouterModule, Routes } from '@angular/router';
 import { DialogOverviewComponent } from './shared-components/dialog-overview/dialog-overview.component';
 import { ToolbarComponent } from './shared-components/toolbar/toolbar.component';
-import { UpdateFileComponent } from './shared-components/update-file/update-file.component';
 import { AuthGuardService } from './authorization/auth-guard.service';
 import {TokenInterceptor} from './authorization/token.interceptor';
 
@@ -45,7 +44,6 @@ export function tokenGetter() {
     LoginComponent,
     DialogOverviewComponent,
     ToolbarComponent,
-    UpdateFileComponent,
   ],
   imports: [
     BrowserModule,

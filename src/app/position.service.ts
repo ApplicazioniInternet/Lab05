@@ -1,9 +1,7 @@
 import { Injectable, Output, EventEmitter } from '@angular/core';
 import { ClientHttpService } from './client-http.service';
-import {icon, latLng, marker, Marker, Polygon} from 'leaflet';
-import { Observable } from 'rxjs';
 import { Position } from './position';
-import { PositionForm } from './customer/position-form';
+import {MatSnackBar} from '@angular/material';
 
 @Injectable({
   providedIn: 'root'
@@ -18,13 +16,16 @@ export class PositionService {
   @Output() clearAllPositions: EventEmitter<void> = new EventEmitter();
   @Output() boughtPositions: EventEmitter<void> = new EventEmitter();
 
-  constructor(private client: ClientHttpService) {}
+  constructor(private client: ClientHttpService, public snackBar: MatSnackBar) {}
 
   buyPositionsInArea(polygon: Position[]) {
     this.polygonPositions = polygon;
-    this.client.buyPositions(polygon, this.dateMax, this.dateMin).subscribe(() => {
-      this.boughtPositions.emit();
-    });
+    this.client.buyPositions(polygon, this.dateMax, this.dateMin).subscribe(
+      () => {
+        this.boughtPositions.emit();
+      },
+      () => this.snackBar.open('Il poligono selezionato non è valido', 'OK', {duration: 2000})
+    );
   }
 
   private isPositionsInPolygon(point: Position, polygon: Position[]): Boolean {
