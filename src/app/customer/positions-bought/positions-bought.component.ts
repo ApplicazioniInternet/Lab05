@@ -10,14 +10,14 @@ import { PositionService } from '../../position.service';
 export class PositionsBoughtComponent implements OnInit {
   positions: Position[] = new Array<Position>();
 
-  constructor(private positionService: PositionService) {
-    this.getBoughtPositions();
-   }
+  constructor(private positionService: PositionService) { }
 
   ngOnInit() {
     this.positionService.newPositionsBought.subscribe(positionBought => {
       this.getBoughtPositions();
     });
+
+    this.getBoughtPositions();
   }
 
   getBoughtPositions(): void {
